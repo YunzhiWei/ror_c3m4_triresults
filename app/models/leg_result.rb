@@ -10,13 +10,18 @@ class LegResult
 
   def calc_ave
   	#
+  	# p "LegResult:calc_ave"
+
   end
 
   after_initialize do |doc|
-  	# calc_ave
+  	# p "LegResult:after_initialize"
+  	calc_ave
   end
   
   def secs= value
+  	# p "LegResult:secs="
+
   	self[:secs] = value
 
   	calc_ave
