@@ -4,6 +4,10 @@ class LegResult
 
   embedded_in :entrant
 
+  embeds_one :event, as: :parent
+
+  validates_presence_of :event
+
   def calc_ave
   	#
   end
