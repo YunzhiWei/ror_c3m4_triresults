@@ -16,4 +16,8 @@ class Entrant
   def update_total(result)
   	self.secs=results.inject(0) {|sum, element| sum + element.secs }
   end
+
+  def the_race
+    race.race
+  end
 end
