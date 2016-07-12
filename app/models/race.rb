@@ -81,6 +81,12 @@ class Race
 
   def next_bib
     self[:next_bib] += 1
+    if self.save
+      return self[:next_bib]
+    else
+      self.errors.messages
+      return self[:next_bib] -= 1
+    end
   end
 
   def get_group racer
@@ -92,6 +98,22 @@ class Race
       name     = min_age >= 60 ? "masters #{gender}" : "#{min_age} to #{max_age} (#{gender})"
       Placing.demongoize(:name=>name)
     end
+  end
+
+  def create_entrant racer
+    newentrant = Entrant.new
+    newentrant.build_race(self.attributes.symbolize_keys.slice(:_id, :n, :date))
+    newentrant.build_racer(racer.info.attributes)
+    newentrant.group = get_group(racer)
+    events.each {|event| newentrant.send("#{event.name}=", event) }
+    if newentrant.validate
+      newentrant.bib = next_bib
+      newentrant.save
+    else
+      # puts newentrant.errors.messages
+      # newentrant = nil
+    end
+    newentrant
   end
 
 end
