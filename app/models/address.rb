@@ -1,10 +1,10 @@
 class Address
   attr_accessor :city, :state, :location
 
-  def initialize(city, state, loc)
+  def initialize(city=nil, state=nil, loc=nil)
     @city  = city
     @state = state
-    @location = Point.new(loc[0], loc[1])
+    @location = loc ? Point.new(loc[0], loc[1]) : nil
   end
 
   #creates a DB-form of the instance
@@ -17,7 +17,7 @@ class Address
     case object
     when nil then nil
     else
-      Address.new(object[:city], object[:state], object[:loc][:coordinates])
+      Address.new(object[:city], object[:state], object[:loc] ? object[:loc][:coordinates] : nil)
     end
   end
 
