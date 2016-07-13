@@ -116,4 +116,11 @@ class Race
     newentrant
   end
 
+  def self.upcoming_available_to racer
+    upcoming_reg_race_ids = racer.races.upcoming.pluck(:race).map {|r| r[:_id]}
+    upcoming_all_race_ids = self.upcoming.map {|r| r[:_id]}
+    upcoming_dif_race_ids = upcoming_all_race_ids - upcoming_reg_race_ids
+    self.in(:id=>upcoming_dif_race_ids)
+  end
+
 end
