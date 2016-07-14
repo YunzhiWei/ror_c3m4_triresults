@@ -27,9 +27,9 @@ class Address
     when nil then nil
     when Hash then 
       if object[:type] #in GeoJSON Address format
-          Address.new(object[:city], object[:state], object[:loc][:coordinates]).mongoize
+          Address.new(object[:city], object[:state], object[:loc] ? object[:loc][:coordinates] : nil).mongoize
       else       #in legacy format
-          Address.new(object[:city], object[:state], object[:loc][:coordinates]).mongoize
+          Address.new(object[:city], object[:state], object[:loc] ? object[:loc][:coordinates] : nil).mongoize
       end
     when Address then object.mongoize
     else object
