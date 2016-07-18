@@ -58,4 +58,26 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  namespace :api do
+    resources :races, only: [:index, :show] do
+      resources :results, only: [:index, :show]
+    end
+    resources :racers, only: [:index, :show] do
+      resources :entries, only: [:index, :show]
+    end
+
+
+    # get 'races'                        => "races#index"
+    # get 'races/:id'                    => "races#show"
+    # get 'races/:race_id/results'       => "races#index"
+    # get 'races/:race_id/results/:id'   => "races#show"
+  
+    # get 'racers'                       => "racers#index"
+    # get 'racers/:id'                   => "racers#show"
+    # get 'racers/:racer_id/entries'     => "racers#index"
+    # get 'racers/:racer_id/entries/:id' => "racers#show"
+
+  end
+
 end
