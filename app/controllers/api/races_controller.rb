@@ -6,7 +6,8 @@ module Api
 
     def index
       if !request.accept || request.accept == "*/*"
-        render plain: "/api/races" 
+        # render plain: "/api/races"
+        render plain:  "/#{params[:controller]}, offset=[#{params[:offset]}], limit=[#{params[:limit]}]"
       else
         render plain:  "api: controller - #{params[:controller]}, action - #{params[:action]}"
       end
@@ -24,7 +25,8 @@ module Api
 
     def create
       if !request.accept || request.accept == "*/*"
-        render plain: :nothing, status: :ok
+        # render plain: :nothing, status: :ok
+        render plain:  "#{params[:race][:name]}"
       else
         render plain:  "api: controller - #{params[:controller]}, action - #{params[:action]}, race_id - #{params[:id]}"
       end
