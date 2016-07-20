@@ -28,10 +28,19 @@ module Api
         # render plain: :nothing, status: :ok
         render plain:  "#{params[:race][:name]}"
       else
-        render plain:  "api: controller - #{params[:controller]}, action - #{params[:action]}, race_id - #{params[:id]}"
+        # binding.pry # pay attention to your 'rails server' console instead of 'irb' console
+        # render plain:  "api: controller - #{params[:controller]}, action - #{params[:action]}, race_id - #{params[:id]}"
+        race=Race.create(race_params)
+        render plain:  "#{params[:race][:name]}", status: :created
       end
       
     end
+
+    private
+
+      def race_params
+        params.require(:race).permit(:name, :date)
+      end
 
   end
 
