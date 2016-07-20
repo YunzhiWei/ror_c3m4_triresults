@@ -3,7 +3,13 @@ module Api
   class RacesController < ApplicationController
 
     rescue_from Mongoid::Errors::DocumentNotFound do |exception|
-      render plain: "woops: cannot find race[#{params[:id]}]", status: :not_found
+      if !request.accept || request.accept == "*/*"
+        render plain: "woops: cannot find race[#{params[:id]}]", status: :not_found
+      else
+        render :status=>:not_found,
+               :template=>"api/error_msg",
+               :locals=>{ :msg=>"woops: cannot find race[#{params[:id]}]"}
+      end
     end
 
     protect_from_forgery with: :null_session
@@ -18,14 +24,14 @@ module Api
       
     end
   
-    def show
+    def show      
       if !request.accept || request.accept == "*/*"
         render plain: "/api/races/#{params[:id]}" 
       else
         # binding.pry # pay attention to your 'rails server' console instead of 'irb' console
         # render plain:  "api: controller - #{params[:controller]}, action - #{params[:action]}, race_id - #{params[:id]}"
         race=Race.find(params[:id])
-        render json: race
+        render race
       end
       
     end
