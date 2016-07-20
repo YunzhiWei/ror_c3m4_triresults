@@ -49,6 +49,13 @@ module Api
       render json: race
     end
 
+    def destroy
+      # binding.pry # pay attention to your 'rails server' console instead of 'irb' console
+      race=Race.find(params[:id])
+      race.destroy
+      render :nothing => true, :status => :no_content
+    end
+
     private
 
       def race_params
