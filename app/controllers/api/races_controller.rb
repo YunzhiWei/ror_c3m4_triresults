@@ -18,7 +18,10 @@ module Api
       if !request.accept || request.accept == "*/*"
         render plain: "/api/races/#{params[:id]}" 
       else
-        render plain:  "api: controller - #{params[:controller]}, action - #{params[:action]}, race_id - #{params[:id]}"
+        # binding.pry # pay attention to your 'rails server' console instead of 'irb' console
+        # render plain:  "api: controller - #{params[:controller]}, action - #{params[:action]}, race_id - #{params[:id]}"
+        race=Race.find(params[:id])
+        render json: race
       end
       
     end
