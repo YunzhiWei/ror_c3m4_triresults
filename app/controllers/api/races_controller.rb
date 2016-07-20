@@ -40,6 +40,7 @@ module Api
 
     def update
       # binding.pry # pay attention to your 'rails server' console instead of 'irb' console
+      Rails.logger.debug("method=#{request.method}")
       race=Race.find(params[:id])
       inputpara=race_params
       inputpara.each do |k,v|
