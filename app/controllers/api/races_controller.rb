@@ -36,7 +36,16 @@ module Api
         race=Race.create(race_params)
         render plain:  "#{params[:race][:name]}", status: :created
       end
-      
+    end
+
+    def update
+      # binding.pry # pay attention to your 'rails server' console instead of 'irb' console
+      race=Race.find(params[:id])
+      inputpara=race_params
+      inputpara.each do |k,v|
+        race[k] = v
+      end
+      render json: race
     end
 
     private
