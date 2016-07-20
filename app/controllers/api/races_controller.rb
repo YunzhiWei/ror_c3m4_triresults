@@ -2,6 +2,11 @@ module Api
 
   class RacesController < ApplicationController
 
+    rescue_from ActionView::MissingTemplate do |exception|
+      Rails.logger.debug exception
+      render plain: "woops: we do not support that content-type[#{request.accept}]", status: :unsupported_media_type
+    end
+
     rescue_from Mongoid::Errors::DocumentNotFound do |exception|
       if !request.accept || request.accept == "*/*"
         render plain: "woops: cannot find race[#{params[:id]}]", status: :not_found
@@ -24,7 +29,7 @@ module Api
       
     end
   
-    def show      
+    def show
       if !request.accept || request.accept == "*/*"
         render plain: "/api/races/#{params[:id]}" 
       else
