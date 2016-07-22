@@ -8,7 +8,11 @@ module Api
       if !request.accept || request.accept == "*/*"
         render plain: "/api/races/#{params[:race_id]}/results" 
       else
-        render plain:  "api: controller - #{params[:controller]}, action - #{params[:action]}, race_id - #{params[:race_id]}, result_id - #{params[:id]}"
+        # render plain:  "api: controller - #{params[:controller]}, action - #{params[:action]}, race_id - #{params[:race_id]}, result_id - #{params[:id]}"
+
+        @race=Race.find(params[:race_id])
+        @entrants=@race.entrants
+        
       end
       
     end
