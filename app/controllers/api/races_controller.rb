@@ -19,7 +19,7 @@ module Api
       end
     end
 
-    def index
+    def index      
       if !request.accept || request.accept == "*/*"
         # render plain: "/api/races"
         render plain:  "/#{params[:controller]}, offset=[#{params[:offset]}], limit=[#{params[:limit]}]"
@@ -42,9 +42,12 @@ module Api
     end
 
     def create
-      if !request.accept || request.accept == "*/*"
-        # render plain: :nothing, status: :ok
-        render plain:  "#{params[:race][:name]}"
+      if !request.accept || request.accept == "*/*"        
+        if params[:race]
+          render plain:  "#{params[:race][:name]}"
+        else
+          render plain: :nothing, status: :ok
+        end
       else
         # binding.pry # pay attention to your 'rails server' console instead of 'irb' console
         # render plain:  "api: controller - #{params[:controller]}, action - #{params[:action]}, race_id - #{params[:id]}"
