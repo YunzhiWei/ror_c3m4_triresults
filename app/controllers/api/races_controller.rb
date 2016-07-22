@@ -2,6 +2,8 @@ module Api
 
   class RacesController < ApplicationController
 
+    protect_from_forgery with: :null_session
+
     rescue_from ActionView::MissingTemplate do |exception|
       Rails.logger.debug exception
       render plain: "woops: we do not support that content-type[#{request.accept}]", status: :unsupported_media_type
@@ -16,8 +18,6 @@ module Api
                :locals=>{ :msg=>"woops: cannot find race[#{params[:id]}]"}
       end
     end
-
-    protect_from_forgery with: :null_session
 
     def index
       if !request.accept || request.accept == "*/*"
