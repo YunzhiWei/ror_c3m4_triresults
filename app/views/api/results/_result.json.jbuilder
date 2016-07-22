@@ -8,9 +8,9 @@ json.bib            @result.bib
 json.city           @result.city
 json.state          @result.state
 json.gender         @result.gender
-json.gender_place   @result.gender.place
+json.gender_place   @result.gender.place                            if result.gender
 json.group          @result.group_name
-json.group_place    @result.group.place
+json.group_place    @result.group.place                             if result.group
 json.swim           format_hours   @result.swim.secs
 json.pace_100       format_minutes @result.swim_pace_100
 json.t1             format_minutes @result.t1.secs
