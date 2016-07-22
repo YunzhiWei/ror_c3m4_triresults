@@ -12,7 +12,11 @@ module Api
 
         @race=Race.find(params[:race_id])
         @entrants=@race.entrants
-        
+
+        # headers["ETag"] = Digest::MD5.hexdigest(@race.cache_key)
+        # headers["Last-Modified"] = @race.entrants.max(:updated_at).httpdate
+        fresh_when(@race)
+                
       end
       
     end
