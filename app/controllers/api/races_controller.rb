@@ -77,7 +77,7 @@ module Api
         params.require(:race).permit(:name, :date)
       end
 
-    end
+    # end <== priviate is a keyword, no need 'end' !!!
 
   end
 end
